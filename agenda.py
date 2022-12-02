@@ -10,12 +10,6 @@ lista_usuarios=[] #defino una lista vacia donde se van a ir guardando los usuari
 def eliminarContacto():
     pass
 
-def editarContacto():
-    pass
-
-# def suma(i):
-#    i=+1
-#    return i
 
 # def consultarAgenda():
 #     r=tkinter.Text(root, width=80, height=15, bg=BG_BUTTON, fg=LETTER_COLOR, font=(FONT_STYLE, FONT_SIZE_LABEL))
@@ -43,11 +37,15 @@ def archivarContacto():
     num_act.write(str(num))
     num_act.close()
     ###CREO UN ARCHIVO CON EL NOMBRE ACTUALIZADO Y GUARDO LOS DATOS###
-    with open(nombreArchivo, 'w') as user: #como cambio el nombre para que se vayan cambiando nuevos archivos?
-        lista_usuarios.sort() #ordeno la lista
-        for elemento in lista_usuarios:
-            user.write(elemento +'\n')
+    with open(nombreArchivo, 'w') as user: 
+        ###AÑADO AL ARCHIVO CREADO UNICAMENTE EL ÚLTIMO ELEMENTO DE LA LISTA, QUE ES EL NUEVO CONTACTO AGREGADO###
+        contacto_nuevo=lista_usuarios[-1] #lista de caracteres
+        print(contacto_nuevo)
+        user.write(contacto_nuevo)
+        with open("contactos.txt", "a") as contacto:
+            contacto.write(contacto_nuevo +"/" + nombreArchivo + "\n")
     user.close()
+    
 
 def guardarContacto(): #para crear el arhivo de txt de cada usuario
 
@@ -57,12 +55,38 @@ def guardarContacto(): #para crear el arhivo de txt de cada usuario
    correo=email.get()
    pagina_web=paginaWeb.get()
 
-   lista_usuarios.append(name+"/" +nombre_usuario + "/" + correo + "/" + pagina_web) #separo con $ para visualizar mejor la lista
+   lista_usuarios.append(name+"," +nombre_usuario + "," + correo + "," + pagina_web) #separo con $ para visualizar mejor la lista
    archivarContacto()
    print(name, nombre_usuario,correo, pagina_web)
    print(lista_usuarios)
-    #insertar codigo que haga que cuando guardo el contacto se cree un archivo nuevo con esos datos
    
+
+def editarContacto(archivo_contacto):
+    # #   ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
+    # name=nombre.get()
+    # nombre_usuario=username.get()
+    # correo=email.get()
+    # pagina_web=paginaWeb.get()
+
+    with open(archivo_contacto, "w") as archivoEditado:
+        archivoEditado.write("esto es una prueba") #quiero escribir lo que haya actualmente en el entry no?
+
+
+def buscarContacto():
+    name=nombre.get() #para buscar por el nombre
+    ###LEER EL ARCHIVO CONTACTOS###
+    archivo_contactos=open("contactos.txt", "r")
+    for linea in archivo_contactos: #esto me lee cada linea del archivo
+        if name in linea: #como hago para que deje de leer las siguientes lineas si ya ha encontrado el nombre?
+            datos_contacto, archivo_contacto=linea.strip().split("/")
+            print("Lo he encontrado")
+            print(datos_contacto)
+            print(archivo_contacto) 
+        print(linea)
+    editarContacto(archivo_contacto)
+
+
+
 
 
 
@@ -115,11 +139,11 @@ paginaWebEntrada.grid(row=4, column=1, ipadx=100, ipady=5, columnspan=2)
 
 ###CREAMOS LOS BOTONES###
 botonGuardar=tkinter.Button(root, text="GUARDAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=guardarContacto)
-botonEliminar=tkinter.Button(root, text="ELIMINAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON)
+botonEliminar=tkinter.Button(root, text="ELIMINAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON, command=editarContacto)
 botonGuardar.grid(row=5, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
 botonEliminar.grid(row=6, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonConsultar=tkinter.Button(root, text="VER AGENDA", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON)
-botonConsultar.grid(row=7, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+botonBuscar=tkinter.Button(root, text="EDITAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContacto)
+botonBuscar.grid(row=7, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
 
 
 
