@@ -55,39 +55,38 @@ def guardarContacto(): #para crear el arhivo de txt de cada usuario
    correo=email.get()
    pagina_web=paginaWeb.get()
 
+   print(name)
+
    lista_usuarios.append(name+"," +nombre_usuario + "," + correo + "," + pagina_web) #separo con $ para visualizar mejor la lista
    archivarContacto()
    print(name, nombre_usuario,correo, pagina_web)
    print(lista_usuarios)
-   
 
 def editarContacto(archivo_contacto):
     # #   ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
-    # name=nombre.get()
-    # nombre_usuario=username.get()
-    # correo=email.get()
-    # pagina_web=paginaWeb.get()
+    name=nombre.get()
+    nombre_usuario=username.get()
+    correo=email.get()
+    pagina_web=paginaWeb.get()
 
     with open(archivo_contacto, "w") as archivoEditado:
-        archivoEditado.write("esto es una prueba") #quiero escribir lo que haya actualmente en el entry no?
+        
+        archivoEditado.write(name +"," +nombre_usuario + "," + correo + "," + pagina_web)#quiero escribir lo que haya actualmente en el entry no?
+    
 
 
 def buscarContacto():
-    name=nombre.get() #para buscar por el nombre
-    ###LEER EL ARCHIVO CONTACTOS###
+    contacto=contact.get() #para buscar por el nombre
+    print(contacto)
+    ##LEER EL ARCHIVO CONTACTOS###
     archivo_contactos=open("contactos.txt", "r")
     for linea in archivo_contactos: #esto me lee cada linea del archivo
-        if name in linea: #como hago para que deje de leer las siguientes lineas si ya ha encontrado el nombre?
+        if contacto in linea: #como hago para que deje de leer las siguientes lineas si ya ha encontrado el nombre?
             datos_contacto, archivo_contacto=linea.strip().split("/")
             print("Lo he encontrado")
-            print(datos_contacto)
+            # print(datos_contacto)
             print(archivo_contacto) 
-        print(linea)
     editarContacto(archivo_contacto)
-
-
-
-
 
 
 root=tkinter.Tk() #creamos la ventana principal, por convención se llama root
@@ -100,6 +99,7 @@ nombre=tkinter.StringVar()
 username=tkinter.StringVar()
 email=tkinter.StringVar()
 paginaWeb=tkinter.StringVar()
+contact=tkinter.StringVar()
 
 
 ###CREAMOS LAS ETIQUETAS###
@@ -120,6 +120,9 @@ emailEtiqueta.grid(row=3, column=0, padx=20, pady=10)
 paginaWebEtiqueta=tkinter.Label(root, text="Pagina Web",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
 paginaWebEtiqueta.grid(row=4, column=0, padx=20, pady=10)
 
+buscarContactoEtiqueta=tkinter.Label(root, text="Nombre del contacto a buscar",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
+buscarContactoEtiqueta.grid(row=7, column=1, padx=20, pady=10)
+
 # eliminarContactoEtiqueta= tkinter.Label(root, text="Eliminar contacto", fg=LETTER_COLOR, bg=BACKGROUND_COLOR)
 # eliminarContactoEtiqueta.grid(row=5, column=1)
 
@@ -137,13 +140,20 @@ emailEntrada.grid(row=3, column=1, ipadx=100, ipady=5, columnspan=2)
 paginaWebEntrada=tkinter.Entry(root, textvariable=paginaWeb, font=(FONT_STYLE, 15))
 paginaWebEntrada.grid(row=4, column=1, ipadx=100, ipady=5, columnspan=2)
 
+contactoBuscado=tkinter.Entry(root, textvariable=contact, font=(FONT_STYLE, 15))
+contactoBuscado.grid(row=8, column=1, ipadx=100, ipady=5, columnspan=2)
+
+
 ###CREAMOS LOS BOTONES###
 botonGuardar=tkinter.Button(root, text="GUARDAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=guardarContacto)
-botonEliminar=tkinter.Button(root, text="ELIMINAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON, command=editarContacto)
-botonGuardar.grid(row=5, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonEliminar.grid(row=6, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonBuscar=tkinter.Button(root, text="EDITAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContacto)
-botonBuscar.grid(row=7, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+# botonEliminar=tkinter.Button(root, text="EDITAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON)
+botonGuardar.grid(row=1, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+# botonEliminar.grid(row=2, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+botonBuscar=tkinter.Button(root, text="BUSCAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContacto)
+botonBuscar.grid(row=3, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+# botonEditar=tkinter.Button(root, text="EDITAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON)
+# botonEditar.grid(row=4, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
+
 
 
 
