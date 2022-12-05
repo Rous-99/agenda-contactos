@@ -62,21 +62,33 @@ def guardarContacto(): #para crear el arhivo de txt de cada usuario
 #    print(name, nombre_usuario,correo, pagina_web)
 #    print(lista_usuarios)
 
-def editarContacto(archivo_contacto):
+def editarContacto(archivo_contacto, datos_contacto):
     # #   ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
     name=nombre.get()
     nombre_usuario=username.get()
     correo=email.get()
     pagina_web=paginaWeb.get()
 
-    contactos=open("contactos.txt", "r")
-    for linea in contactos:
-        if archivo_contacto in linea:
-            print("si estoy aqui")
-            # with open("contactos.txt", "wt") as contacto_reemplazar:
-            #     reemplazo=reemplazo.replace("yo soy el contacto editado")
-            #     contacto_reemplazar.write(reemplazo)
+    with open("contactos.txt", "r") as contactos:
+        lines=contactos.readlines()
+        print(lines)
+        busqueda_contacto=datos_contacto+"/"+archivo_contacto+"\n" #este salto de linea se aplica de verdad?
+        print("busco esto: " + busqueda_contacto)
+        indice_contacto=lines.index(busqueda_contacto)
+        print(indice_contacto)
+        lines[indice_contacto]=name+"," +nombre_usuario + "," + correo + "," + pagina_web+"/"+archivo_contacto
+        
+     
+    
+    with open("contactos.txt", "w") as contactos_edit:
+        # contactos_edit.write("me deberia sustituir todo")
+        for i in lines:
+            contactos_edit.write(i+"\n")
+        # for contacto in lines:
+        #     contactos_edit.write(contacto + "\n")
+
             
+    ###filename (input), line__number(input), text=input
 
     with open(archivo_contacto, "w") as archivoEditado:
         
@@ -97,7 +109,7 @@ def buscarContacto():
             print("Lo he encontrado")
             # print(datos_contacto)
             print(archivo_contacto) 
-            editarContacto(archivo_contacto) #solo si existe el contacto quiero que me lo edite
+            editarContacto(archivo_contacto, datos_contacto) #solo si existe el contacto quiero que me lo edite
         else:
             print("No existe el contacto")
     
