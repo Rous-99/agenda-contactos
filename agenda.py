@@ -57,10 +57,10 @@ def guardarContacto(): #para crear el arhivo de txt de cada usuario
 
    print(name)
 
-   lista_usuarios.append(name+"," +nombre_usuario + "," + correo + "," + pagina_web) #separo con $ para visualizar mejor la lista
+   lista_usuarios.append(name+"," +nombre_usuario + "," + correo + "," + pagina_web) #separo con $ para visualizar mejor la lista, la lista me sirve para añadir contactos a contactos.txt, pero se borra cuando cierro la app, asi que debo almacenar los contactos en txt
    archivarContacto()
-   print(name, nombre_usuario,correo, pagina_web)
-   print(lista_usuarios)
+#    print(name, nombre_usuario,correo, pagina_web)
+#    print(lista_usuarios)
 
 def editarContacto(archivo_contacto):
     # #   ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
@@ -69,9 +69,20 @@ def editarContacto(archivo_contacto):
     correo=email.get()
     pagina_web=paginaWeb.get()
 
+    contactos=open("contactos.txt", "r")
+    for linea in contactos:
+        if archivo_contacto in linea:
+            print("si estoy aqui")
+            # with open("contactos.txt", "wt") as contacto_reemplazar:
+            #     reemplazo=reemplazo.replace("yo soy el contacto editado")
+            #     contacto_reemplazar.write(reemplazo)
+            
+
     with open(archivo_contacto, "w") as archivoEditado:
         
         archivoEditado.write(name +"," +nombre_usuario + "," + correo + "," + pagina_web)#quiero escribir lo que haya actualmente en el entry no?
+
+  
     
 
 
@@ -86,7 +97,12 @@ def buscarContacto():
             print("Lo he encontrado")
             # print(datos_contacto)
             print(archivo_contacto) 
-    editarContacto(archivo_contacto)
+            editarContacto(archivo_contacto) #solo si existe el contacto quiero que me lo edite
+        else:
+            print("No existe el contacto")
+    
+
+    
 
 
 root=tkinter.Tk() #creamos la ventana principal, por convención se llama root
