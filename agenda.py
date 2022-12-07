@@ -76,14 +76,14 @@ def editarContacto(archivo_contacto, datos_contacto):
         print("busco esto: " + busqueda_contacto)
         indice_contacto=lines.index(busqueda_contacto)
         print(indice_contacto)
-        lines[indice_contacto]=name+"," +nombre_usuario + "," + correo + "," + pagina_web+"/"+archivo_contacto
+        lines[indice_contacto]=name+"," +nombre_usuario + "," + correo + "," + pagina_web+"/"+archivo_contacto+"\n"
         
      
     
     with open("contactos.txt", "w") as contactos_edit:
         # contactos_edit.write("me deberia sustituir todo")
         for i in lines:
-            contactos_edit.write(i+"\n")
+            contactos_edit.write(i)
         # for contacto in lines:
         #     contactos_edit.write(contacto + "\n")
 
