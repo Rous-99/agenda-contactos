@@ -120,7 +120,8 @@ def buscarContacto():
 root=tkinter.Tk() #creamos la ventana principal, por convención se llama root
 root.geometry(SIZE) #redimensionamos la ventana
 root.title("Agenda de usuarios")  #añadimos un titulo a la ventana
-root.iconbitmap('E:\\ARCHIVOS\\Desktop\\Proyecto-final-agenda-usuarios\\agenda-contactos\\img\\contact.ico')
+# root.iconbitmap('E:\\ARCHIVOS\\Desktop\\Proyecto-final-agenda-usuarios\\agenda-contactos\\img\\contact.ico')
+#cuando alguien se lo descargue va a dar error porque no tinenen la misma url
 
 ###CREAMOS LAS VARIABLES###
 nombre=tkinter.StringVar()
