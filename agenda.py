@@ -1,5 +1,6 @@
-import tkinter
-from tkinter import INSERT
+from tkinter import *
+from tkinter import ttk
+# from tkinter import INSERT
 from properties import *
 
 # i=0
@@ -117,39 +118,39 @@ def buscarContacto():
     
 
 
-root=tkinter.Tk() #creamos la ventana principal, por convención se llama root
+root=Tk() #creamos la ventana principal, por convención se llama root
 root.geometry(SIZE) #redimensionamos la ventana
 root.title("Agenda de usuarios")  #añadimos un titulo a la ventana
 # root.iconbitmap('E:\\ARCHIVOS\\Desktop\\Proyecto-final-agenda-usuarios\\agenda-contactos\\img\\contact.ico')
 #cuando alguien se lo descargue va a dar error porque no tinenen la misma url
 
 ###CREAMOS LAS VARIABLES###
-nombre=tkinter.StringVar()
-username=tkinter.StringVar()
-email=tkinter.StringVar()
-paginaWeb=tkinter.StringVar()
-contact=tkinter.StringVar()
+nombre=StringVar()
+username=StringVar()
+email=StringVar()
+paginaWeb=StringVar()
+contact=StringVar()
 
 
 ###CREAMOS LAS ETIQUETAS###
 
-tituloEtiqueta=tkinter.Label(root,text="AGENDA DE USUARIOS",font=(FONT_STYLE, FONT_SIZE, FONT_WEIGHT), fg=BG_BUTTON)
+tituloEtiqueta=Label(root,text="AGENDA DE USUARIOS",font=(FONT_STYLE, FONT_SIZE, FONT_WEIGHT), fg=BG_BUTTON)
 tituloEtiqueta.grid(row=0, column=1, padx=10, pady=10, columnspan=2)
 
-nombreEtiqueta=tkinter.Label(root,text="Nombre", font=(FONT_STYLE,FONT_SIZE_LABEL),fg=LETTER_COLOR)
+nombreEtiqueta=Label(root,text="Nombre", font=(FONT_STYLE,FONT_SIZE_LABEL),fg=LETTER_COLOR)
 nombreEtiqueta.grid(row=1, column=0, padx=20, pady=10)
 
-usernameEtiqueta=tkinter.Label(root, text="Username",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
+usernameEtiqueta=Label(root, text="Username",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
 usernameEtiqueta.grid(row=2, column=0, padx=20, pady=10)
 
-emailEtiqueta=tkinter.Label(root, text="Email",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
+emailEtiqueta=Label(root, text="Email",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
 emailEtiqueta.grid(row=3, column=0, padx=20, pady=10)
 
 
-paginaWebEtiqueta=tkinter.Label(root, text="Pagina Web",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
+paginaWebEtiqueta=Label(root, text="Pagina Web",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
 paginaWebEtiqueta.grid(row=4, column=0, padx=20, pady=10)
 
-buscarContactoEtiqueta=tkinter.Label(root, text="Nombre del contacto a buscar",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
+buscarContactoEtiqueta=Label(root, text="Nombre del contacto a buscar",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
 buscarContactoEtiqueta.grid(row=7, column=1, padx=20, pady=10)
 
 # eliminarContactoEtiqueta= tkinter.Label(root, text="Eliminar contacto", fg=LETTER_COLOR, bg=BACKGROUND_COLOR)
@@ -157,28 +158,28 @@ buscarContactoEtiqueta.grid(row=7, column=1, padx=20, pady=10)
 
 ###CREAMOS LAS ENTRADAS###
 
-nombreEntrada=tkinter.Entry(root, textvariable=nombre, font=(FONT_STYLE, 15))
+nombreEntrada=Entry(root, textvariable=nombre, font=(FONT_STYLE, 15))
 nombreEntrada.grid(row=1, column=1, ipadx=100, ipady=5, columnspan=2)
 
-usernameEntrada=tkinter.Entry(root, textvariable=username, font=(FONT_STYLE, 15))
+usernameEntrada=Entry(root, textvariable=username, font=(FONT_STYLE, 15))
 usernameEntrada.grid(row=2, column=1, ipadx=100, ipady=5, columnspan=2)
 
-emailEntrada=tkinter.Entry(root, textvariable=email, font=(FONT_STYLE, 15))
+emailEntrada=Entry(root, textvariable=email, font=(FONT_STYLE, 15))
 emailEntrada.grid(row=3, column=1, ipadx=100, ipady=5, columnspan=2)
 
-paginaWebEntrada=tkinter.Entry(root, textvariable=paginaWeb, font=(FONT_STYLE, 15))
+paginaWebEntrada=Entry(root, textvariable=paginaWeb, font=(FONT_STYLE, 15))
 paginaWebEntrada.grid(row=4, column=1, ipadx=100, ipady=5, columnspan=2)
 
-contactoBuscado=tkinter.Entry(root, textvariable=contact, font=(FONT_STYLE, 15))
+contactoBuscado=Entry(root, textvariable=contact, font=(FONT_STYLE, 15))
 contactoBuscado.grid(row=8, column=1, ipadx=100, ipady=5, columnspan=2)
 
 
 ###CREAMOS LOS BOTONES###
-botonGuardar=tkinter.Button(root, text="GUARDAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=guardarContacto)
+botonGuardar=Button(root, text="GUARDAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=guardarContacto)
 # botonEliminar=tkinter.Button(root, text="EDITAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON)
 botonGuardar.grid(row=1, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
 # botonEliminar.grid(row=2, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonBuscar=tkinter.Button(root, text="BUSCAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContacto)
+botonBuscar=Button(root, text="BUSCAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContacto)
 botonBuscar.grid(row=3, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
 # botonEditar=tkinter.Button(root, text="EDITAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON)
 # botonEditar.grid(row=4, column=3, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
