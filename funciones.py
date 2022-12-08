@@ -1,18 +1,12 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-# from tkinter import INSERT
 from properties import *
 from os import remove
-
-
-# ###CREAMOS LAS FUNCIONES QUE VAMOS A NECESITAR###
+import agenda
+###CREAMOS LAS FUNCIONES QUE VAMOS A NECESITAR###
 
 lista_usuarios=[] #defino una lista vacia donde se van a ir guardando los usuarios
-
-
-def mostrarInstrucciones():
-    instrucciones=messagebox.showinfo("Instrucciones de uso", "Hola! Soy tu agenda y quiero que aprendas a usarme correctamente :D. EDITAR CONTACTO: si quieres editar un contacto tienes que introducir su nombre en 'Buscar contacto por su nombre' y rellenar todos los campos del contacto con los cambios que quieras, eso sí, dale al botón de 'Editar Contacto' ÚNICAMENTE después de haber realizado esto. ELIMINAR CONTACTO: para eliminar un contacto debes introducir su nombre en 'Buscar contacto por su nombre' y darle al botón de 'Eliminar Contacto'. Eso es todo!! Gracias y espero que te sea útil <3 ")
 
 
 def consultarAgenda():
@@ -33,8 +27,19 @@ def consultarAgenda():
     tv.column("Nombre", width=80, anchor=CENTER)
     tv.pack(fill=BOTH, expand=True)
     
-    tv.tag_configure("row", background=BACKGROUND_COLOR, font=("Georgia",10))
+    tv.tag_configure("prueba", background=BACKGROUND_COLOR, font=("Georgia",10))
 
+
+    #Add some style:
+    # style = ttk.Style()
+
+    # style.theme_use("clam")
+
+    # style.configure("Treeview",
+    #                 background="silver",
+    #                 foreground="black",
+    #                 rowheight=55,
+    #                 fieldbackground="silver")
 
 
     ##encabezados##
@@ -59,7 +64,7 @@ def consultarAgenda():
                 continue #no quiero que haga nada
             else:
                 nombreE, usernameE,correoE,paginaWebE, archivoE=linea_nueva.strip().split(",") #cuando elimino un contacto no me puede crear las variables porque se borra el espacio y se queda sin comas
-                tv.insert("", END,tags="row", text=archivoE, values=(nombreE,usernameE,correoE,paginaWebE))
+                tv.insert("", END,tags="prueba", text=archivoE, values=(nombreE,usernameE,correoE,paginaWebE))
             
            
         
@@ -121,10 +126,10 @@ def archivarContacto():
 def guardarContacto(): #para crear el arhivo de txt de cada usuario
 
     ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
-    name=nombre.get()
-    nombre_usuario=username.get()
-    correo=email.get()
-    pagina_web=paginaWeb.get()
+    name=agenda.nombre.get()
+    nombre_usuario=agenda.username.get()
+    correo=agenda.email.get()
+    pagina_web=agenda.paginaWeb.get()
 
     if "@" in correo: #validar el correo, si tiene "@"
         lista_usuarios.append(name+"," +nombre_usuario + "," + correo + "," + pagina_web) #separo con $ para visualizar mejor la lista, la lista me sirve para añadir contactos a contactos.txt, pero se borra cuando cierro la app, asi que debo almacenar los contactos en txt
@@ -140,10 +145,10 @@ def guardarContacto(): #para crear el arhivo de txt de cada usuario
 
 def editarContacto(archivo_contacto, datos_contacto):
     # #   ###CON LOS GETS SACO EL VALOR DE LAS VARIABLES###
-    name=nombre.get()
-    nombre_usuario=username.get()
-    correo=email.get()
-    pagina_web=paginaWeb.get()
+    name=agenda.nombre.get()
+    nombre_usuario=agenda.username.get()
+    correo=agenda.email.get()
+    pagina_web=agenda.paginaWeb.get()
 
     if "@" in correo:
         
@@ -173,7 +178,7 @@ def editarContacto(archivo_contacto, datos_contacto):
 
 
 def buscarContactoEdit():
-    contacto=contact.get() #para buscar por el nombre
+    contacto=agenda.contact.get() #para buscar por el nombre
     print(contacto)
     ##LEER EL ARCHIVO CONTACTOS###
     archivo_contactos=open("contactos.txt", "r")
@@ -186,7 +191,7 @@ def buscarContactoEdit():
     archivo_contactos.close()    
     
 def buscarContactoElim():
-    contacto=contact.get() #para buscar por el nombre
+    contacto=agenda.contact.get() #para buscar por el nombre
     print(contacto)
     ##LEER EL ARCHIVO CONTACTOS###
     archivo_contactos=open("contactos.txt", "r")
@@ -197,75 +202,3 @@ def buscarContactoElim():
             print(archivo_contacto) 
             eliminarContacto(archivo_contacto, datos_contacto) #solo si existe el contacto quiero que me lo edite
     archivo_contactos.close()    
-
-    
-
-
-root=Tk() #creamos la ventana principal, por convención se llama root
-root.geometry(SIZE) #redimensionamos la ventana
-root.title("Agenda de usuarios")  #añadimos un titulo a la ventana
-
-
-##CREAMOS LAS VARIABLES###
-nombre=StringVar()
-username=StringVar()
-email=StringVar()
-paginaWeb=StringVar()
-contact=StringVar()
-
-
-##CREAMOS LAS ETIQUETAS###
-
-tituloEtiqueta=Label(root,text="AGENDA DE USUARIOS",font=(FONT_STYLE, FONT_SIZE, FONT_WEIGHT), fg=BG_BUTTON)
-tituloEtiqueta.grid(row=0, column=1, padx=10, pady=10, columnspan=2)
-
-nombreEtiqueta=Label(root,text="Nombre", font=(FONT_STYLE,FONT_SIZE_LABEL),fg=LETTER_COLOR)
-nombreEtiqueta.grid(row=1, column=0, padx=20, pady=10)
-
-usernameEtiqueta=Label(root, text="Username",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
-usernameEtiqueta.grid(row=2, column=0, padx=20, pady=10)
-
-emailEtiqueta=Label(root, text="Email",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
-emailEtiqueta.grid(row=3, column=0, padx=20, pady=10)
-
-
-paginaWebEtiqueta=Label(root, text="Pagina Web",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
-paginaWebEtiqueta.grid(row=4, column=0, padx=20, pady=10)
-
-buscarContactoEtiqueta=Label(root, text="Buscar contacto por nombre",font=(FONT_STYLE,FONT_SIZE_LABEL), fg=LETTER_COLOR)
-buscarContactoEtiqueta.grid(row=7, column=1, padx=20, pady=10)
-
-
-
-
-###CREAMOS LAS ENTRADAS###
-
-nombreEntrada=Entry(root, textvariable=nombre, font=(FONT_STYLE, 15))
-nombreEntrada.grid(row=1, column=1, ipadx=100, ipady=5, columnspan=2)
-
-usernameEntrada=Entry(root, textvariable=username, font=(FONT_STYLE, 15))
-usernameEntrada.grid(row=2, column=1, ipadx=100, ipady=5, columnspan=2)
-
-emailEntrada=Entry(root, textvariable=email, font=(FONT_STYLE, 15))
-emailEntrada.grid(row=3, column=1, ipadx=100, ipady=5, columnspan=2)
-
-paginaWebEntrada=Entry(root, textvariable=paginaWeb, font=(FONT_STYLE, 15))
-paginaWebEntrada.grid(row=4, column=1, ipadx=100, ipady=5, columnspan=2)
-
-contactoBuscado=Entry(root, textvariable=contact, font=(FONT_STYLE, 15))
-contactoBuscado.grid(row=8, column=1, ipadx=100, ipady=5, columnspan=2)
-
-
-###CREAMOS LOS BOTONES###
-botonGuardar=Button(root, text="GUARDAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=guardarContacto)
-botonEliminar=Button(root, text="ELIMINAR CONTACTO",font=(FONT_STYLE,15, FONT_WEIGHT), fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContactoElim)
-botonGuardar.grid(row=2, column=4, ipadx=5, ipady=5, padx=25, pady=10, columnspan=2)
-botonAgenda=Button(root,text="      VER AGENDA      ", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=consultarAgenda)
-botonAgenda.grid(row=3, column=4, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonEliminar.grid(row=10, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonEditar=Button(root, text="EDITAR CONTACTO", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=buscarContactoEdit)
-botonEditar.grid(row=9, column=1, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-botonInstrucciones=Button(root, text="INSTRUCCIONES", font=(FONT_STYLE,15, FONT_WEIGHT),fg=LETTER_BUTTON, bg=BG_BUTTON, command=mostrarInstrucciones)
-botonInstrucciones.grid(row=4,column=4, ipadx=5, ipady=5, padx=10, pady=10, columnspan=2)
-
-root.mainloop() #va a registrar todo lo que ocurre mientras la ventana está abierta
