@@ -1,6 +1,0 @@
-rous,rousisonfire,rous@gmail.com,rous.es/user1.txt
-
-
-a,a,ahorasi@gmail.com,a/user4.txt
-anis,juliana,julia@gmail.com,julia.es/user5.txt
-jota,a,jota@gmail.com,jota.es/user6.txt

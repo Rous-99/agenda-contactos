@@ -59,7 +59,7 @@ def consultarAgenda():
     with open("contactos.txt", "r") as verContactos:
         for linea in verContactos:        
             linea_nueva=linea.replace('/', ',') #para separar el nombre del archivo cambio / por una ,
-            if linea=="\n":
+            if linea=="":
                 continue #no quiero que haga nada
             else:
                 nombreE, usernameE,correoE,paginaWebE, archivoE=linea_nueva.strip().split(",")
@@ -80,7 +80,7 @@ def eliminarContacto():
         lines=contactos.readlines()
         busqueda_contacto=datos_contacto+"/"+archivo_contacto+"\n"
         indice_contacto=lines.index(busqueda_contacto)
-        lines[indice_contacto]="\n" #lo dejo vacio para que el contacto se borre en la linea correspondiente
+        lines[indice_contacto]="" #lo dejo vacio para que el contacto se borre en la linea correspondiente
     
    with open("contactos.txt", "w") as contactos_edit:
         for i in lines:
